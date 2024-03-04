@@ -48,6 +48,8 @@ Chatgpt Response: content script -> service worker -> vscode
 
 Since chatgpt's response is streamed, the latest content is read and forwarded by the content script every 200ms until the response is completed.
 
-# Known (Potential) Issues
+# Known Issues
 
-1. The behaviour is unknown if multiple tabs of chatgpt are open or the extension is running in multiple browser windows. For best experience install this extension in one browser and run chatgpt in one tab only.
+1. Behaviour is unknown if multiple tabs of chatgpt are open or the extension is running in multiple browsers. For best experience install this extension in one browser and run chatgpt in one tab only.
+2. You may see errors related to Websocket connection failure in Extensions. This will be the case when a chat panel isn't open in vscode hence no websocket server is running. It can be ignored as the service worker retries connection every second.
+3. Chatgpt tab must be active and the browser window must be opened otherwise the message exchange doesn't work well.
