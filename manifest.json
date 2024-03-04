@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Copilot At Home",
+  "description": "Connect with CAH's vscode extension to exchange messages from chatgpt",
+  "version": "0.0.1",
+  "content_scripts": [
+    {
+      "js": ["scripts/chatgpt.js"],
+      "matches": ["https://chat.openai.com/*"]
+    }
+  ],
+  "background": {
+    "service_worker": "workers/service-worker.js"
+  },
+  "minimum_chrome_version": "116"
+}
