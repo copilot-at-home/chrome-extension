@@ -1,3 +1,6 @@
+//Keep the service worker active as long as chatgpt is opened in a tab
+chrome.runtime.onMessage.addListener(() => {});
+
 function connect() {
   const websocket = new WebSocket("ws://localhost:8765");
 
@@ -27,7 +30,7 @@ function connect() {
 function keepAlive(websocket) {
   const intervalId = setInterval(() => {
     websocket.send("keepalive");
-  }, 20 * 1000);
+  }, 20_000);
 
   return intervalId;
 }

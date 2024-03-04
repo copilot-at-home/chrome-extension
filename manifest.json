@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "content_scripts": [
     {
-      "js": ["scripts/chatgpt.js"],
+      "js": ["scripts/chatgpt.js", "scripts/ping-service-worker.js"],
       "matches": ["https://chat.openai.com/*"]
     }
   ],
