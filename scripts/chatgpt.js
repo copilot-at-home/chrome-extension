@@ -1,13 +1,22 @@
 let currentRequest, isResponding;
 
 chrome.runtime.onMessage.addListener(function (request) {
-  currentRequest = request;
-  sendMessage();
+  sendMessage(request);
 });
 
-function sendMessage() {
+function sendMessage(request) {
+  /**
+   * since response is being listened in a timeout
+   * sometimes chatgpt will have completed the response
+   * and send button would be back in the dom
+   * before the timeout retriggers which results in
+   * incomplete messages being sent out to the socket.
+   * graceRun is a temp workaround to prevent this.
+   */
+  currentRequest = { ...request, graceRun: 2 };
+
   const textarea = document.getElementById("prompt-textarea");
-  textarea.value = currentRequest.content;
+  textarea.value = request.content;
 
   const inputEvent = new CustomEvent("input", { bubbles: true });
   textarea.dispatchEvent(inputEvent);
@@ -25,14 +34,14 @@ function listenForGptResponse() {
       console.log("Waiting for request/response...");
 
       if (isResponding) {
-        await forwardGptResponseToSW(true);
+        await forwardGptResponseToSW(currentRequest.graceRun-- <= 0);
       } else {
         listenForGptResponse();
       }
     } else {
       await forwardGptResponseToSW(false);
     }
-  }, 500);
+  }, 200);
 }
 
 async function forwardGptResponseToSW(isLastChunk) {
