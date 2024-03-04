@@ -12,5 +12,6 @@
   "background": {
     "service_worker": "workers/service-worker.js"
   },
-  "minimum_chrome_version": "116"
+  "minimum_chrome_version": "116",
+  "permissions": ["tabs"]
 }
