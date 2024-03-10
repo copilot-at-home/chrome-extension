@@ -1,17 +1,18 @@
 {
   "manifest_version": 3,
-  "name": "Copilot At Home",
-  "description": "Connect with CAH's vscode extension to exchange messages from chatgpt",
-  "version": "0.0.1",
+  "name": "VSCode Copy Gpt",
+  "description": "Connect with it's corresponding VSCode extension to exchange messages with chatgpt directly from the IDE",
+  "version": "0.1.0",
   "content_scripts": [
     {
-      "js": ["scripts/chatgpt.js", "scripts/ping-service-worker.js"],
+      "js": ["scripts/ping-service-worker.js"],
       "matches": ["https://chat.openai.com/*"]
     }
   ],
+  "host_permissions": ["https://chat.openai.com/*"],
   "background": {
-    "service_worker": "workers/service-worker.js"
+    "service_worker": "workers/index.js"
   },
   "minimum_chrome_version": "116",
-  "permissions": ["tabs"]
+  "permissions": ["scripting"]
 }
