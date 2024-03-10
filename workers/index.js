@@ -87,7 +87,12 @@ function parseCommand(event) {
  */
 function runCommand({ type, content }) {
   const textarea = document.getElementById("prompt-textarea");
-  textarea.value = content;
+
+  if (textarea.value) {
+    textarea.value += "\n";
+  }
+
+  textarea.value += content;
 
   const inputEvent = new CustomEvent("input", { bubbles: true });
   textarea.dispatchEvent(inputEvent);
